@@ -5,8 +5,8 @@ const RepliesList = ({ replies, commentId }) => {
   return (
     replies.length
       ? <div className='flex justify-end mt-4'>
-        <div className='w-[1px] mx-10 bg-light-gray rounded-sm'></div>
-        <div className=' w-[85%] flex flex-col gap-4'>
+        <div className='w-[1px] tablet:mx-10 mr-4 bg-light-gray rounded-sm'></div>
+        <div className=' tablet:w-[85%] w-[95%] flex flex-col gap-4'>
           {
             replies.map((reply) => {
               return <Reply key={reply.id} {...reply} commentId={commentId} />

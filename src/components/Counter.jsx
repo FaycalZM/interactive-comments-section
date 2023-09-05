@@ -7,7 +7,7 @@ const Counter = ({ score, commentId, replyId = null }) => {
     const { voteCommentHandler, voteReplyHandler } = useComments();
 
     return (
-        <div className='w-fit h-fit flex flex-col items-center gap-4 px-3 py-4 rounded-xl bg-very-light-gray'>
+        <div className='w-fit h-fit flex tablet:flex-col flex-row items-center gap-4 px-3 tablet:py-4 py-2 rounded-xl bg-very-light-gray'>
             <button
                 onClick={() => {
                     if (!replyId)
