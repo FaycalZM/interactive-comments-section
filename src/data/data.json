@@ -63,6 +63,20 @@
           }
         }
       ]
+    },
+    {
+      "id": 5,
+      "content": "I love code.",
+      "createdAt": "2 days ago",
+      "score": 2,
+      "user": {
+        "image": {
+          "png": "/images/avatars/image-juliusomo.png",
+          "webp": "/images/avatars/image-juliusomo.webp"
+        },
+        "username": "juliusomo"
+      },
+      "replies": []
     }
   ]
 }

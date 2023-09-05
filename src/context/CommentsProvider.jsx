@@ -10,7 +10,10 @@ const CommentsProvider = ({ children }) => {
 
     const [currentUser,] = useState(data.currentUser);
     const [comments, dispatch] = useReducer(CommentsReducer, data.comments);
-    const [lastId, setLastId] = useState(4);
+    const [lastId, setLastId] = useState(5);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deletedCommentId, setDeletedCommentId] = useState();
+    const [deletedReplyId, setDeletedReplyId] = useState();
 
     // handlers
     const addCommentHandler = (commentContent, creationTime, createdId, user) => {
@@ -99,10 +102,30 @@ const CommentsProvider = ({ children }) => {
         return ID;
     }
 
+    const openDeleteModal = () => {
+        setShowDeleteModal(true);
+    }
+    const closeDeleteModal = () => {
+        setShowDeleteModal(false);
+    }
+
+    const resetIDs = () => {
+        setDeletedCommentId(null);
+        setDeletedReplyId(null);
+    }
+
     return (
         <CommentsContext.Provider value={{
             comments,
             currentUser,
+            showDeleteModal,
+            deletedCommentId,
+            deletedReplyId,
+            setDeletedCommentId,
+            setDeletedReplyId,
+            resetIDs,
+            openDeleteModal,
+            closeDeleteModal,
             addCommentHandler,
             deleteCommentHandler,
             editCommentHandler,

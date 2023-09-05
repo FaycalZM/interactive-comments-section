@@ -8,7 +8,7 @@ import UpdateContentForm from './UpdateContentForm';
 // the 'id' below is the reply's id
 const Reply = ({ id, content, createdAt, replyingTo, score, user, commentId }) => {
 
-  const { currentUser, deleteReplyHandler } = useComments();
+  const { currentUser, setDeletedCommentId, setDeletedReplyId, openDeleteModal } = useComments();
   const [commentContent, setCommentContent] = useState(content);
   const updateContentRef = useRef();
   const [isEditing, setIsEditing] = useState(false);
@@ -44,7 +44,9 @@ const Reply = ({ id, content, createdAt, replyingTo, score, user, commentId }) =
                 ? <div className='flex gap-6'>
                   <button
                     onClick={() => {
-                      deleteReplyHandler(commentId, id);
+                      setDeletedCommentId(commentId);
+                      setDeletedReplyId(id);
+                      openDeleteModal();
                     }}
                     className='flex items-center gap-2 text-soft-red font-medium hover:text-pale-red transition ease-in'>
                     <FaTrash /> Delete
