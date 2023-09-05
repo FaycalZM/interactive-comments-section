@@ -1,7 +1,7 @@
 import React from 'react'
 import Reply from './Reply'
 
-const RepliesList = ({ replies }) => {
+const RepliesList = ({ replies, commentId }) => {
   return (
     replies.length
       ? <div className='flex justify-end mt-4'>
@@ -9,7 +9,7 @@ const RepliesList = ({ replies }) => {
         <div className=' w-[85%] flex flex-col gap-4'>
           {
             replies.map((reply) => {
-              return <Reply key={reply.id} {...reply} />
+              return <Reply key={reply.id} {...reply} commentId={commentId} />
             })
           }
         </div>

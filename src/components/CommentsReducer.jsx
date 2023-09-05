@@ -26,10 +26,10 @@ const CommentsReducer = (comments, action) => {
     }
     case 'vote_comment': {
       return comments.map(comment => {
-        if (comment.id === action.id) {
+        if (comment.id === action.commentId) {
           return {
             ...comment,
-            score: comment.score + vote
+            score: comment.score + action.vote
           }
         }
         else
@@ -51,17 +51,20 @@ const CommentsReducer = (comments, action) => {
     case 'edited_reply': {
       return comments.map(comment => {
         if (comment.id === action.commentId) {
-          comment.replies.map(reply => {
-            if (reply.id === action.replyId) {
-              return {
-                ...reply,
-                content: action.newContent,
-                createdAt: action.updateTime
-              };
-            }
-            else
-              return reply;
-          });
+          return {
+            ...comment,
+            replies: comment.replies.map(reply => {
+              if (reply.id === action.replyId) {
+                return {
+                  ...reply,
+                  content: action.newContent,
+                  createdAt: action.updateTime
+                };
+              }
+              else
+                return reply;
+            })
+          }
         }
         else
           return comment;
@@ -84,11 +87,11 @@ const CommentsReducer = (comments, action) => {
         if (comment.id === action.commentId) {
           return {
             ...comment,
-            replies: replies.map(reply => {
+            replies: comment.replies.map(reply => {
               if (reply.id === action.replyId) {
                 return {
                   ...reply,
-                  score: reply.score + vote
+                  score: reply.score + action.vote
                 };
               }
               else
