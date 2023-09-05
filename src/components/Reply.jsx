@@ -2,6 +2,7 @@ import React from 'react'
 import Counter from './Counter'
 import { FaReply } from 'react-icons/fa'
 
+// the 'id' below is the reply's id
 const Reply = ({ id, content, createdAt, score, user, replies = [] }) => {
   return (
     <div className='reply bg-white flex gap-6 bg-opacity-90 p-6 rounded-md'>

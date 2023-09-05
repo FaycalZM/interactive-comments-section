@@ -4,7 +4,7 @@ import { FaReply } from 'react-icons/fa'
 import RepliesList from './RepliesList'
 import ReplyForm from './ReplyForm'
 
-
+// the 'id' below is the comment's id
 const Comment = ({ id, content, createdAt, score, user, replies }) => {
 
   const [isReplyFormOpened, setIsReplyFormOpened] = useState(false);
@@ -19,7 +19,9 @@ const Comment = ({ id, content, createdAt, score, user, replies }) => {
   return (
     <div className='comment mb-8'>
       <div className='bg-white flex gap-6 bg-opacity-90 p-6 rounded-md mb-2'>
-        <Counter score={score} />
+        <Counter
+
+          score={score} />
         <div className='comment-content w-full'>
           <div className='flex justify-between'>
             <div className='flex items-center gap-3'>
