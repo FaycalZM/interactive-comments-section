@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Counter from './Counter'
 import { FaReply, FaTrash, FaEdit } from 'react-icons/fa'
 import RepliesList from './RepliesList'
 import ReplyForm from './ReplyForm'
 import { useComments } from '../context/CommentsProvider'
+import UpdateContentForm from './UpdateContentForm'
 
 // the 'id' below is the comment's id
 const Comment = ({ id, content, createdAt, score, user, replies }) => {
 
   const { currentUser, deleteCommentHandler } = useComments();
-  
+  const [commentContent, setCommentContent] = useState(content);
+  const updateContentRef = useRef();
+  const [isEditing, setIsEditing] = useState(false);
   const [isReplyFormOpened, setIsReplyFormOpened] = useState(false);
 
   const openReplyForm = () => {
@@ -46,7 +49,11 @@ const Comment = ({ id, content, createdAt, score, user, replies }) => {
                     className='flex items-center gap-2 text-soft-red font-medium hover:text-pale-red transition ease-in'>
                     <FaTrash /> Delete
                   </button>
-                  <button className='flex items-center gap-2 text-moderate-blue font-medium hover:text-light-grayish-blue transition ease-in'>
+                  <button
+                    onClick={() => {
+                      setIsEditing(true);
+                    }}
+                    className='flex items-center gap-2 text-moderate-blue font-medium hover:text-light-grayish-blue transition ease-in'>
                     <FaEdit /> Edit
                   </button>
                 </div>
@@ -58,9 +65,23 @@ const Comment = ({ id, content, createdAt, score, user, replies }) => {
                 </button>
             }
           </div>
-          <p className='mt-4 w-[97.5%] text-grayish-blue opacity-90'>
-            {content}
-          </p>
+
+          {
+            isEditing
+              ? <UpdateContentForm
+                updateContentRef={updateContentRef}
+                commentContent={commentContent}
+                setCommentContent={setCommentContent}
+                setIsEditing={setIsEditing}
+                commentId={id}
+              />
+              : <p
+                className='mt-4 w-[97.5%] text-grayish-blue opacity-90'>
+                {content}
+              </p>
+          }
+
+
         </div>
       </div>
       {

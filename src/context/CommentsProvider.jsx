@@ -34,6 +34,15 @@ const CommentsProvider = ({ children }) => {
         });
     }
 
+    const editCommentHandler = (commentId, newContent, updateTime) => {
+        dispatch({
+            type: 'edited_comment',
+            id: commentId,
+            newContent: newContent,
+            updateTime: updateTime
+        });
+    }
+
     const voteCommentHandler = (commentId, vote) => {
         dispatch({
             type: 'vote_comment',
@@ -65,6 +74,16 @@ const CommentsProvider = ({ children }) => {
         })
     }
 
+    const editReplyHandler = (commentId, replyId, newContent, updateTime) => {
+        dispatch({
+            type: 'edited_reply',
+            commentId: commentId,
+            replyId: replyId,
+            newContent: newContent,
+            updateTime: updateTime
+        });
+    }
+
     const voteReplyHandler = (commentId, replyId, vote) => {
         dispatch({
             type: 'vote_reply',
@@ -86,9 +105,11 @@ const CommentsProvider = ({ children }) => {
             currentUser,
             addCommentHandler,
             deleteCommentHandler,
+            editCommentHandler,
             voteCommentHandler,
             addReplyHandler,
             deleteReplyHandler,
+            editReplyHandler,
             voteReplyHandler,
             newId
         }}>

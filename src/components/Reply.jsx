@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Counter from './Counter'
 import { FaReply, FaTrash, FaEdit } from 'react-icons/fa'
 import ReplyForm from './ReplyForm';
 import { useComments } from '../context/CommentsProvider';
+import UpdateContentForm from './UpdateContentForm';
 
 // the 'id' below is the reply's id
 const Reply = ({ id, content, createdAt, replyingTo, score, user, commentId }) => {
 
   const { currentUser, deleteReplyHandler } = useComments();
+  const [commentContent, setCommentContent] = useState(content);
+  const updateContentRef = useRef();
+  const [isEditing, setIsEditing] = useState(false);
   const [isReplyFormOpened, setIsReplyFormOpened] = useState(false);
+
 
   const openReplyForm = () => {
     setIsReplyFormOpened(true);
@@ -46,7 +51,7 @@ const Reply = ({ id, content, createdAt, replyingTo, score, user, commentId }) =
                   </button>
                   <button
                     onClick={() => {
-
+                      setIsEditing(true);
                     }}
                     className='flex items-center gap-2 text-moderate-blue font-medium hover:text-light-grayish-blue transition ease-in'>
                     <FaEdit /> Edit
@@ -59,11 +64,21 @@ const Reply = ({ id, content, createdAt, replyingTo, score, user, commentId }) =
                   <FaReply /> Reply
                 </button>
             }
-
           </div>
-          <p className='mt-4 w-[97.5%] text-grayish-blue opacity-90'>
-            <span className='text-moderate-blue font-medium'>{'@' + replyingTo} </span> {content}
-          </p>
+          {
+            isEditing
+              ? <UpdateContentForm
+                updateContentRef={updateContentRef}
+                commentContent={commentContent}
+                setCommentContent={setCommentContent}
+                setIsEditing={setIsEditing}
+                commentId={commentId}
+                replyId={id}
+              />
+              : <p className='mt-4 w-[97.5%] text-grayish-blue opacity-90'>
+                <span className='text-moderate-blue font-medium'>{'@' + replyingTo} </span> {content}
+              </p>
+          }
         </div>
       </div>
       {
